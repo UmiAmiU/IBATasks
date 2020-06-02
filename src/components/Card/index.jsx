@@ -1,6 +1,7 @@
 import React from "react";
 
 const Card = (props) => {
+  const [cssChange, setCssChange] = React.useState(false);
   const styles = {
     header: {
       margin: "5px",
@@ -15,12 +16,30 @@ const Card = (props) => {
       width: "30%",
       border: "1px solid black",
     },
+    flex: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "0px 10px",
+    },
+    colorChange: {
+      color: "blue",
+    },
   };
   return (
     <div style={styles.block}>
-      <div style={styles.header}>{props.header}</div>
+      <div style={styles.flex}>
+        <div style={styles.header}>{props.header}</div>
+        <input type="checkbox" onChange={() => setCssChange(!cssChange)} />
+      </div>
       <hr />
-      <div style={styles.text}>{props.text}</div>
+      <div
+        style={
+          cssChange ? { ...styles.text, ...styles.colorChange } : styles.text
+        }
+      >
+        {props.text}
+      </div>
     </div>
   );
 };
