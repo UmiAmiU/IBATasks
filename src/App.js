@@ -6,10 +6,12 @@ function App() {
   return (
     <div>
       <Header></Header>
-      <Card
-        header="Great News"
-        text="Импликация, следовательно, контролирует бабувизм, открывая новые горизонты."
-      />
+      <div style={{ paddingTop: "10px", paddingLeft: "10px" }}>
+        <Card
+          header="Great News"
+          text="Импликация, следовательно, контролирует бабувизм, открывая новые горизонты."
+        />
+      </div>
     </div>
   );
 }

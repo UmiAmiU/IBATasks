@@ -12,7 +12,6 @@ const Card = (props) => {
       fontSize: "small",
     },
     block: {
-      margin: "10px",
       width: "30%",
       border: "1px solid black",
     },
