@@ -39,33 +39,27 @@ const Card = (props) => {
 
   const butBlock = isChange ? (
     <React.Fragment>
-      <button
+      <MdDone
         onClick={() => {
-          props.changeCard(props.id, values);
+          props.onCardChange(values);
           setChange(false);
         }}
-      >
-        <MdDone />
-      </button>
-      <button
+      />
+      <MdClose
         onClick={() => {
           setValues({ header: props.header, text: props.text });
           setChange(false);
         }}
-      >
-        <MdClose />
-      </button>
+      />
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <button
+      <MdModeEdit
         onClick={() => {
           setChecked(false);
           setChange(true);
         }}
-      >
-        <MdModeEdit />
-      </button>
+      />
       <input type="checkbox" onChange={() => setChecked(!isChecked)} />
     </React.Fragment>
   );

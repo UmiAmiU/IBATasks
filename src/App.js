@@ -11,7 +11,7 @@ function App() {
         "Импликация, следовательно, контролирует бабувизм, открывая новые горизонты.",
     },
   ]);
-  const changeCard = (id, newData) => {
+  const changeCard = (id) => (newData) => {
     const cards = cardsData.map((card) => {
       if (card.id === id) {
         card.header = newData.header;
@@ -27,10 +27,9 @@ function App() {
       <Header></Header>
       <div style={{ paddingTop: "10px", paddingLeft: "10px" }}>
         <Card
-          id={cardsData[0].id}
           header={cardsData[0].header}
           text={cardsData[0].text}
-          changeCard={changeCard}
+          onCardChange={changeCard(cardsData[0].id)}
         />
       </div>
     </div>
