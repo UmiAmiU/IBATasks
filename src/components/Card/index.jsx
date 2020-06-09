@@ -24,8 +24,11 @@ const Card = (props) => {
       fontSize: "small",
     },
     block: {
+      display: "inline-block",
       width: "30%",
       border: "1px solid black",
+      marginLeft: "10px",
+      marginBottom: "10px",
     },
     flex: {
       display: "flex",
@@ -54,15 +57,21 @@ const Card = (props) => {
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <MdModeEdit
-        onClick={() => {
-          setChecked(false);
-          setChange(true);
-        }}
-      />
+      {!props.isReadMode && (
+        <MdModeEdit
+          onClick={() => {
+            setChecked(false);
+            setChange(true);
+          }}
+        />
+      )}
       <input type="checkbox" onChange={() => setChecked(!isChecked)} />
     </React.Fragment>
   );
+  if (props.isReadMode && isChange) {
+    setValues({ header: props.header, text: props.text });
+    setChange(false);
+  }
 
   return (
     <div style={styles.block}>
