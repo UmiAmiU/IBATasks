@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Card from "./components/Card";
+import "./App.css";
 
 function App() {
   const [cardsData, setCardsData] = React.useState([
@@ -69,7 +70,7 @@ function App() {
         <label>"Режим чтения"</label>
         <input type="checkbox" onChange={() => setReadMode(!isReadMode)} />
       </div>
-      <div style={{ padding: "10px" }}>
+      <div className="cardWrapper">
         {cardsData.map((card) => (
           <Card
             key={card.id}

@@ -27,8 +27,6 @@ const Card = (props) => {
       display: "inline-block",
       width: "30%",
       border: "1px solid black",
-      marginLeft: "10px",
-      marginBottom: "10px",
     },
     flex: {
       display: "flex",
