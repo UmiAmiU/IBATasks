@@ -1,7 +1,13 @@
 import React from "react";
 import Header from "./components/Header";
 import Card from "./components/Card";
+import styled from "styled-components";
 import "./App.css";
+
+const ReadCheckbox = styled.input`
+  margin-left: 1rem;
+  margin-top: 1rem;
+`;
 
 function App() {
   const [cardsData, setCardsData] = React.useState([
@@ -67,8 +73,11 @@ function App() {
     <div>
       <Header></Header>
       <div>
+        <ReadCheckbox
+          type="checkbox"
+          onChange={() => setReadMode(!isReadMode)}
+        />
         <label>"Режим чтения"</label>
-        <input type="checkbox" onChange={() => setReadMode(!isReadMode)} />
       </div>
       <div className="cardWrapper">
         {cardsData.map((card) => (
