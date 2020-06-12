@@ -60,9 +60,14 @@ function App() {
   ]);
   const cardsToRemove = [];
   const changeCard = (id) => (newData) => {
-    const card = cardsData.find((it) => it.id === id);
-    card.header = newData.header;
-    card.text = newData.text;
+    const cards = cardsData.map((card) => {
+      if (card.id === id) {
+        card.header = newData.header;
+        card.text = newData.text;
+      }
+      return card;
+    });
+    setCardsData(cards);
   };
 
   const setRemove = (id) => () => {
