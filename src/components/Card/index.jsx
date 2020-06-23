@@ -33,14 +33,14 @@ const Card = (props) => {
         isReadMode={props.isReadMode}
         isChecked={isChecked}
         isChange={isChange}
-        setChecked={(bool) => {
+        onSetChecked={(bool) => {
           setChecked(bool);
           props.onChecking();
         }}
-        setChange={(bool) => setChange(bool)}
+        onSetChange={(bool) => setChange(bool)}
         handleChange={handleChange("header")}
-        applyChanges={() => props.onCardChange(values)}
-        denyChanges={denyChanges}
+        onApplyChanges={() => props.onCardChange(values)}
+        onDenyChanges={denyChanges}
       />
       <hr />
       <CardBody
