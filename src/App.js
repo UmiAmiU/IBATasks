@@ -11,6 +11,7 @@ const ReadCheckbox = styled.input`
 
 function App() {
   const [isReadMode, setReadMode] = React.useState(false);
+  const [isAddMode, setAddMode] = React.useState(false);
   const [cardsData, setCardsData] = React.useState([
     {
       id: 2314,
@@ -79,6 +80,15 @@ function App() {
     }
   };
 
+  const [values, setValues] = React.useState({
+    header: "",
+    text: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
   return (
     <div>
       <Header></Header>
@@ -88,6 +98,40 @@ function App() {
           onChange={() => setReadMode(!isReadMode)}
         />
         <label>"Режим чтения"</label>
+        <input
+          type="button"
+          value={isAddMode ? "Добавить" : "Добавить новый элемент"}
+          onClick={() => {
+            if (isAddMode) {
+              cardsData.push({
+                id: Math.floor(Math.random() * (9999 - 1000)) + 1000,
+                header: values.header,
+                text: values.text,
+              });
+              setValues({
+                header: "",
+                text: "",
+              });
+              setAddMode(false);
+            } else {
+              setAddMode(true);
+            }
+          }}
+          style={{ margin: "1rem" }}
+        />
+        {isAddMode && (
+          <input
+            type="button"
+            value="Отмена"
+            onClick={() => {
+              setValues({
+                header: "",
+                text: "",
+              });
+              setAddMode(false);
+            }}
+          />
+        )}
         <input
           type="button"
           value="Удалить выделенные элементы"
@@ -100,6 +144,20 @@ function App() {
           style={{ margin: "1rem" }}
         />
       </div>
+      {isAddMode && (
+        <div>
+          <input
+            type="text"
+            onChange={handleChange("header")}
+            style={{ margin: "5px" }}
+          />
+          <textarea
+            style={{ margin: "5px", resize: "none", width: "90%" }}
+            rows="10"
+            onChange={handleChange("text")}
+          ></textarea>
+        </div>
+      )}
       <CardList
         isReadMode={isReadMode}
         cardsData={cardsData}
