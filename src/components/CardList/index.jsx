@@ -1,12 +1,15 @@
 import React from "react";
 import Card from "../Card";
+import withLoadingDelay from "./withLoadingDelay.jsx";
 import "./CardList.css";
+
+const CardWithLoad = withLoadingDelay(Card);
 
 const CardList = (props) => {
   return (
     <div className="cardWrapper">
       {props.cardsData.map((card) => (
-        <Card
+        <CardWithLoad
           key={card.id}
           header={card.header}
           text={card.text}
