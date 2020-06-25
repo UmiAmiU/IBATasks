@@ -4,6 +4,7 @@ import styled from "styled-components";
 import "./App.css";
 import CardList from "./components/CardList";
 import { v4 as uuidv4 } from "uuid";
+import CardContext from "./components/context/card-context.jsx";
 
 const ReadCheckbox = styled.input`
   margin-left: 1rem;
@@ -92,7 +93,9 @@ function App() {
 
   return (
     <div>
-      <Header></Header>
+      <CardContext.Provider value={{ cards: cardsData }}>
+        <Header></Header>
+      </CardContext.Provider>
       <div>
         <ReadCheckbox
           type="checkbox"
