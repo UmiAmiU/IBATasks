@@ -55,11 +55,11 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
-  header: PropTypes.string,
-  text: PropTypes.string,
-  onCardChange: PropTypes.func,
-  onChecking: PropTypes.func,
-  isReadMode: PropTypes.bool,
+  header: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  onCardChange: PropTypes.func.isRequired,
+  onChecking: PropTypes.func.isRequired,
+  isReadMode: PropTypes.bool.isRequired,
 };
 
 export default Card;

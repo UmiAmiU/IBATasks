@@ -1,20 +1,10 @@
 import React from "react";
 import Header from "./components/Header";
-import styled from "styled-components";
-import "./App.css";
-import CardList from "./components/CardList";
-import { v4 as uuidv4 } from "uuid";
+import Main from "./components/Main";
 import CardContext from "./components/context/card-context.jsx";
 
-const ReadCheckbox = styled.input`
-  margin-left: 1rem;
-  margin-top: 1rem;
-`;
-
 function App() {
-  const [isReadMode, setReadMode] = React.useState(false);
-  const [isAddMode, setAddMode] = React.useState(false);
-  const [cardsData, setCardsData] = React.useState([
+  const [cards, setCards] = React.useState([
     {
       id: "4b6088bc-8362-47ab-ba2e-9bc17412b2ce",
       header: "Great News",
@@ -61,113 +51,29 @@ function App() {
       text: "Дискретность амбивалентно транспонирует гравитационный парадокс.",
     },
   ]);
-  const cardsToRemove = [];
-  const changeCard = (id) => (newData) => {
-    const cards = cardsData.map((card) => {
-      if (card.id === id) {
-        card.header = newData.header;
-        card.text = newData.text;
-      }
-      return card;
-    });
-    setCardsData(cards);
+
+  const add = (card) => cards.push(card);
+  const update = (id) => (newData) => {
+    setCards(
+      cards.map((card) => {
+        if (card.id === id) {
+          card.header = newData.header;
+          card.text = newData.text;
+        }
+        return card;
+      })
+    );
   };
-
-  const setRemove = (id) => () => {
-    const index = cardsToRemove.indexOf(id);
-    if (index === -1) {
-      cardsToRemove.push(id);
-    } else {
-      cardsToRemove.splice(index, 1);
-    }
-  };
-
-  const [values, setValues] = React.useState({
-    header: "",
-    text: "",
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const remove = (delList) => {
+    setCards(cards.filter((card) => !delList.includes(card.id)));
   };
 
   return (
     <div>
-      <CardContext.Provider value={{ cards: cardsData }}>
+      <CardContext.Provider value={{ cards, add, update, remove }}>
         <Header></Header>
+        <Main></Main>
       </CardContext.Provider>
-      <div>
-        <ReadCheckbox
-          type="checkbox"
-          onChange={() => setReadMode(!isReadMode)}
-        />
-        <label>"Режим чтения"</label>
-        <input
-          type="button"
-          value={isAddMode ? "Добавить" : "Добавить новый элемент"}
-          onClick={() => {
-            if (isAddMode) {
-              cardsData.push({
-                id: uuidv4(),
-                header: values.header,
-                text: values.text,
-              });
-              setValues({
-                header: "",
-                text: "",
-              });
-              setAddMode(false);
-            } else {
-              setAddMode(true);
-            }
-          }}
-          style={{ margin: "1rem" }}
-        />
-        {isAddMode && (
-          <input
-            type="button"
-            value="Отмена"
-            onClick={() => {
-              setValues({
-                header: "",
-                text: "",
-              });
-              setAddMode(false);
-            }}
-          />
-        )}
-        <input
-          type="button"
-          value="Удалить выделенные элементы"
-          onClick={() => {
-            setCardsData(
-              cardsData.filter((card) => !cardsToRemove.includes(card.id))
-            );
-            cardsToRemove.splice(0, cardsToRemove.length);
-          }}
-          style={{ margin: "1rem" }}
-        />
-      </div>
-      {isAddMode && (
-        <div>
-          <input
-            type="text"
-            onChange={handleChange("header")}
-            style={{ margin: "5px" }}
-          />
-          <textarea
-            style={{ margin: "5px", resize: "none", width: "90%" }}
-            rows="10"
-            onChange={handleChange("text")}
-          ></textarea>
-        </div>
-      )}
-      <CardList
-        isReadMode={isReadMode}
-        cardsData={cardsData}
-        changeCard={changeCard}
-        setRemove={setRemove}
-      />
     </div>
   );
 }

@@ -3,17 +3,14 @@ import "./Header.css";
 import CardContext from "../context/card-context";
 
 const Header = (props) => {
+  const { cards } = React.useContext(CardContext);
   return (
     <header className="header">
       <div className="textBlock">Header</div>
-      <CardContext.Consumer>
-        {(value) => (
-          <div className="textBlock">
-            Количество карточек: {"  "}
-            <span className="badge">{value.cards.length}</span>
-          </div>
-        )}
-      </CardContext.Consumer>
+      <div className="textBlock">
+        Количество карточек: {"  "}
+        <span className="badge">{cards.length}</span>
+      </div>
     </header>
   );
 };
