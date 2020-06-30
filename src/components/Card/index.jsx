@@ -1,6 +1,7 @@
 import React from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
+import PropTypes from "prop-types";
 
 const Card = (props) => {
   const [isChecked, setChecked] = React.useState(false);
@@ -51,6 +52,14 @@ const Card = (props) => {
       />
     </div>
   );
+};
+
+Card.propTypes = {
+  header: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  onCardChange: PropTypes.func.isRequired,
+  onChecking: PropTypes.func.isRequired,
+  isReadMode: PropTypes.bool.isRequired,
 };
 
 export default Card;

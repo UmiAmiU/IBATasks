@@ -1,16 +1,18 @@
 import React from "react";
+import "./Header.css";
+import CardContext from "../context/card-context";
 
 const Header = (props) => {
-  const styles = {
-    display: "flex",
-    background: "blue",
-    padding: "20px 0px",
-    color: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  };
-
-  return <header style={styles}>Header</header>;
+  const { cards } = React.useContext(CardContext);
+  return (
+    <header className="header">
+      <div className="textBlock">Header</div>
+      <div className="textBlock">
+        Количество карточек: {"  "}
+        <span className="badge">{cards.length}</span>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
