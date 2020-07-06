@@ -30,8 +30,8 @@ const CardHeader = (props) => {
       )}
       <MdClose
         onClick={() => {
-          props.denyChanges();
-          props.setChange(false);
+          props.onDenyChanges();
+          props.onSetChange(false);
         }}
       />
     </React.Fragment>
@@ -40,20 +40,20 @@ const CardHeader = (props) => {
       {!props.isReadMode && (
         <MdModeEdit
           onClick={() => {
-            props.setChecked(false);
-            props.setChange(true);
+            props.onSetChecked(false);
+            props.onSetChange(true);
           }}
         />
       )}
       <input
         type="checkbox"
-        onChange={() => props.setChecked(!props.isChecked)}
+        onChange={() => props.onSetChecked(!props.isChecked)}
       />
     </React.Fragment>
   );
   if (props.isReadMode && props.isChange) {
-    props.denyChanges();
-    props.setChange(false);
+    props.onDenyChanges();
+    props.onSetChange(false);
   }
 
   return (
