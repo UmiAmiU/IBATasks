@@ -4,6 +4,7 @@ import "./Main.css";
 import CardList from "../CardList";
 import { v4 as uuidv4 } from "uuid";
 import CardContext from "../context/card-context";
+import TextField from "../TextField";
 
 const ReadCheckbox = styled.input`
   margin-left: 1rem;
@@ -14,6 +15,7 @@ const Main = (props) => {
   const { add, remove } = React.useContext(CardContext);
   const [isReadMode, setReadMode] = React.useState(false);
   const [isAddMode, setAddMode] = React.useState(false);
+  const [isDisabled, setDisabled] = React.useState(false);
 
   const cardsToRemove = [];
 
@@ -62,6 +64,7 @@ const Main = (props) => {
               setAddMode(true);
             }
           }}
+          disabled={isDisabled}
           style={{ margin: "1rem" }}
         />
         {isAddMode && (
@@ -89,11 +92,13 @@ const Main = (props) => {
       </div>
       {isAddMode && (
         <div>
-          <input
-            type="text"
+          <TextField
             onChange={handleChange("header")}
-            style={{ margin: "5px" }}
-          />
+            required
+            setDisabled={setDisabled}
+          >
+            Header:
+          </TextField>
           <textarea
             style={{ margin: "5px", resize: "none", width: "90%" }}
             rows="10"
