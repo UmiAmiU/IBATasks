@@ -1,4 +1,5 @@
 import React from "react";
+import TextField from "../../TextField";
 import { MdModeEdit, MdDone, MdClose } from "react-icons/md";
 
 const CardHeader = (props) => {
@@ -15,15 +16,18 @@ const CardHeader = (props) => {
       padding: "0px 10px",
     },
   };
+  const [isDisabled, setDisabled] = React.useState(false);
 
   const butBlock = props.isChange ? (
     <React.Fragment>
-      <MdDone
-        onClick={() => {
-          props.applyChanges();
-          props.setChange(false);
-        }}
-      />
+      {!isDisabled && (
+        <MdDone
+          onClick={() => {
+            props.applyChanges();
+            props.setChange(false);
+          }}
+        />
+      )}
       <MdClose
         onClick={() => {
           props.denyChanges();
@@ -55,11 +59,11 @@ const CardHeader = (props) => {
   return (
     <div style={styles.flex}>
       {props.isChange ? (
-        <input
-          type="text"
-          value={props.header}
+        <TextField
           onChange={props.handleChange}
-          style={{ margin: "5px" }}
+          required
+          setDisabled={setDisabled}
+          value={props.header}
         />
       ) : (
         <div style={styles.header}>{props.header}</div>
