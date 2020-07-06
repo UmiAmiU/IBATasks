@@ -33,9 +33,14 @@ const password = (value) => {
 
 const TextField = (props) => {
   const [error, setError] = React.useState("");
+  const [value, setValue] = React.useState("");
 
   React.useEffect(() => {
-    props.setDisabled(Boolean(error));
+    if (props.required) {
+      props.setDisabled(Boolean(error) || !Boolean(value));
+    } else {
+      props.setDisabled(Boolean(error));
+    }
     return () => {
       props.setDisabled(false);
     };
@@ -43,6 +48,7 @@ const TextField = (props) => {
 
   const handleChange = (event) => {
     const newValue = event.target.value;
+    setValue(newValue);
 
     if (props.required) {
       if (required(newValue)) {
