@@ -33,7 +33,7 @@ const password = (value) => {
 
 const TextField = (props) => {
   const [error, setError] = React.useState("");
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("" || props.value);
 
   React.useEffect(() => {
     if (props.required) {
@@ -79,11 +79,7 @@ const TextField = (props) => {
   return (
     <div>
       <div>{props.children}</div>
-      <input
-        className="textField"
-        onChange={handleChange}
-        value={props.value}
-      />
+      <input className="textField" onChange={handleChange} value={value} />
       {error && <div>{error}</div>}
     </div>
   );

@@ -23,8 +23,8 @@ const CardHeader = (props) => {
       {!isDisabled && (
         <MdDone
           onClick={() => {
-            props.applyChanges();
-            props.setChange(false);
+            props.onApplyChanges();
+            props.onSetChange(false);
           }}
         />
       )}

@@ -1,10 +1,10 @@
 import React from "react";
 import "./Header.css";
-import CardContext from "../context/card-context";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = (props) => {
-  const { cards } = React.useContext(CardContext);
+  const cards = useSelector((state) => state.cards);
   return (
     <header className="header">
       <div className="flex">

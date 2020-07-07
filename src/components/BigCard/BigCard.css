@@ -1,0 +1,27 @@
+.cardBlock {
+  margin: 10px;
+  border: 1px solid rgb(145, 133, 133);
+}
+
+.cardBlock:hover {
+  border: 1px solid rgb(41, 34, 34);
+}
+
+.cardHeader {
+  margin: 10px;
+  margin-bottom: 0;
+  color: red;
+  border: 1px solid rgb(145, 133, 133);
+  padding: 5px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.cardBody {
+  margin: 10px;
+  margin-bottom: 0;
+  border: 1px solid rgb(145, 133, 133);
+  padding: 5px;
+  font-size: larger;
+  white-space: pre-wrap;
+}
