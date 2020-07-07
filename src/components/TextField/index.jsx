@@ -33,7 +33,7 @@ const password = (value) => {
 
 const TextField = (props) => {
   const [error, setError] = React.useState("");
-  const [value, setValue] = React.useState("" || props.value);
+  const [value, setValue] = React.useState(props.value || "");
 
   React.useEffect(() => {
     if (props.required) {

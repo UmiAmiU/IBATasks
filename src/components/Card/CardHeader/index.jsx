@@ -40,14 +40,20 @@ const CardHeader = (props) => {
       {!props.isReadMode && (
         <MdModeEdit
           onClick={() => {
-            props.onSetChecked(false);
+            if (props.isChecked) {
+              props.onSetChecked(false);
+              props.onChecking();
+            }
             props.onSetChange(true);
           }}
         />
       )}
       <input
         type="checkbox"
-        onChange={() => props.onSetChecked(!props.isChecked)}
+        onChange={() => {
+          props.onSetChecked(!props.isChecked);
+          props.onChecking();
+        }}
       />
     </React.Fragment>
   );

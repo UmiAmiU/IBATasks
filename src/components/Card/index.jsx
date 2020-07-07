@@ -42,10 +42,8 @@ const Card = (props) => {
         isReadMode={props.isReadMode}
         isChecked={isChecked}
         isChange={isChange}
-        onSetChecked={(bool) => {
-          setChecked(bool);
-          props.onChecking();
-        }}
+        onSetChecked={(bool) => setChecked(bool)}
+        onChecking={props.onChecking}
         onSetChange={(bool) => setChange(bool)}
         handleChange={handleChange("header")}
         onApplyChanges={() =>
@@ -65,9 +63,9 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   header: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  onCardChange: PropTypes.func.isRequired,
   onChecking: PropTypes.func.isRequired,
   isReadMode: PropTypes.bool.isRequired,
 };

@@ -4,41 +4,19 @@ import "./Main.css";
 import CardList from "../CardList";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { initiateCards, addCard, removeCards } from "../../redux/actions";
+import { addCard, removeCards } from "../../redux/actions";
 import TextField from "../TextField";
-import axios from "axios";
 
 const ReadCheckbox = styled.input`
   margin-left: 1rem;
   margin-top: 1rem;
 `;
 
-const url =
-  "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
-
 const Main = (props) => {
   const [isReadMode, setReadMode] = React.useState(false);
   const [isAddMode, setAddMode] = React.useState(false);
   const [isDisabled, setDisabled] = React.useState(false);
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(
-          initiateCards(
-            data.splice(0, 15).map((elem) => ({
-              id: uuidv4(),
-              header: elem.Name,
-              text: elem.About,
-            }))
-          )
-        );
-      })
-      .catch((err) => console.error(err));
-  }, []);
 
   const cardsToRemove = [];
 
