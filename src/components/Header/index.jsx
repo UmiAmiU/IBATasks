@@ -1,10 +1,35 @@
 import React from "react";
 import "./Header.css";
-import CardContext from "../context/card-context";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { initiateCards } from "../../redux/actions";
+import { v4 as uuidv4 } from "uuid";
+
+const url =
+  "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
 
 const Header = (props) => {
-  const { cards } = React.useContext(CardContext);
+  const cards = useSelector((state) => state.cards);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => res.data)
+      .then((data) => {
+        dispatch(
+          initiateCards(
+            data.splice(0, 15).map((elem) => ({
+              id: uuidv4(),
+              header: elem.Name,
+              text: elem.About,
+            }))
+          )
+        );
+      })
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <header className="header">
       <div className="flex">

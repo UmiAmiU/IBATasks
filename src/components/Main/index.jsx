@@ -3,7 +3,8 @@ import styled from "styled-components";
 import "./Main.css";
 import CardList from "../CardList";
 import { v4 as uuidv4 } from "uuid";
-import CardContext from "../context/card-context";
+import { useDispatch } from "react-redux";
+import { addCard, removeCards } from "../../redux/actions";
 import TextField from "../TextField";
 
 const ReadCheckbox = styled.input`
@@ -12,10 +13,10 @@ const ReadCheckbox = styled.input`
 `;
 
 const Main = (props) => {
-  const { add, remove } = React.useContext(CardContext);
   const [isReadMode, setReadMode] = React.useState(false);
   const [isAddMode, setAddMode] = React.useState(false);
   const [isDisabled, setDisabled] = React.useState(false);
+  const dispatch = useDispatch();
 
   const cardsToRemove = [];
 
@@ -50,11 +51,7 @@ const Main = (props) => {
           value={isAddMode ? "Добавить" : "Добавить новый элемент"}
           onClick={() => {
             if (isAddMode) {
-              add({
-                id: uuidv4(),
-                header: values.header,
-                text: values.text,
-              });
+              dispatch(addCard(uuidv4(), values.header, values.text));
               setValues({
                 header: "",
                 text: "",
@@ -84,7 +81,7 @@ const Main = (props) => {
           type="button"
           value="Удалить выделенные элементы"
           onClick={() => {
-            remove(cardsToRemove);
+            dispatch(removeCards(cardsToRemove));
             cardsToRemove.splice(0, cardsToRemove.length);
           }}
           style={{ margin: "1rem" }}

@@ -2,6 +2,9 @@ import React from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateCard } from "../../redux/actions";
 
 const Card = (props) => {
   const [isChecked, setChecked] = React.useState(false);
@@ -10,6 +13,8 @@ const Card = (props) => {
     header: props.header,
     text: props.text,
   });
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -28,19 +33,22 @@ const Card = (props) => {
   };
 
   return (
-    <div style={styles.block}>
+    <div
+      style={styles.block}
+      onDoubleClick={() => history.push(`/card/${props.id}`)}
+    >
       <CardHeader
         header={values.header}
         isReadMode={props.isReadMode}
         isChecked={isChecked}
         isChange={isChange}
-        onSetChecked={(bool) => {
-          setChecked(bool);
-          props.onChecking();
-        }}
+        onSetChecked={(bool) => setChecked(bool)}
+        onChecking={props.onChecking}
         onSetChange={(bool) => setChange(bool)}
         handleChange={handleChange("header")}
-        onApplyChanges={() => props.onCardChange(values)}
+        onApplyChanges={() =>
+          dispatch(updateCard(props.id, values.header, values.text))
+        }
         onDenyChanges={denyChanges}
       />
       <hr />
@@ -55,9 +63,9 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   header: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  onCardChange: PropTypes.func.isRequired,
   onChecking: PropTypes.func.isRequired,
   isReadMode: PropTypes.bool.isRequired,
 };
