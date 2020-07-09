@@ -1,6 +1,9 @@
 import React from "react";
 import TextField from "../TextField";
 import "./Auth.css";
+import { logIn } from "../../redux/actions";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Auth = (props) => {
   const [values, setValues] = React.useState({
@@ -9,6 +12,8 @@ const Auth = (props) => {
   });
   const [isDisabledLogin, setDisabledLogin] = React.useState(false);
   const [isDisabledPass, setDisabledPass] = React.useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -36,6 +41,10 @@ const Auth = (props) => {
         type="button"
         className="buton"
         value="Sing in"
+        onClick={() => {
+          dispatch(logIn(values.login, values.pass));
+          history.push("/");
+        }}
         disabled={isDisabledLogin || isDisabledPass}
       />
     </div>

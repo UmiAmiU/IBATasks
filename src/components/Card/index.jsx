@@ -39,7 +39,6 @@ const Card = (props) => {
     >
       <CardHeader
         header={values.header}
-        isReadMode={props.isReadMode}
         isChecked={isChecked}
         isChange={isChange}
         onSetChecked={(bool) => setChecked(bool)}
@@ -67,7 +66,6 @@ Card.propTypes = {
   header: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   onChecking: PropTypes.func.isRequired,
-  isReadMode: PropTypes.bool.isRequired,
 };
 
 export default Card;

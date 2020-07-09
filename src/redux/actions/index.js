@@ -26,3 +26,17 @@ export const removeCards = (delCards) => ({
   delCards,
   type: "REMOVE_CARDS",
 });
+
+export const initiateUser = () => ({
+  type: "INITIATE_USER",
+});
+
+export const logIn = (username, password) => ({
+  username,
+  password,
+  type: "LOGIN",
+});
+
+export const logOut = () => ({
+  type: "LOGOUT",
+});

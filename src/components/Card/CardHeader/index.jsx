@@ -17,6 +17,9 @@ const CardHeader = (props) => {
     },
   };
   const [isDisabled, setDisabled] = React.useState(false);
+  const isReadMode = localStorage.getItem("read")
+    ? JSON.parse(localStorage.getItem("read"))
+    : false;
 
   const butBlock = props.isChange ? (
     <React.Fragment>
@@ -37,7 +40,7 @@ const CardHeader = (props) => {
     </React.Fragment>
   ) : (
     <React.Fragment>
-      {!props.isReadMode && (
+      {!isReadMode && (
         <MdModeEdit
           onClick={() => {
             if (props.isChecked) {
@@ -57,7 +60,7 @@ const CardHeader = (props) => {
       />
     </React.Fragment>
   );
-  if (props.isReadMode && props.isChange) {
+  if (isReadMode && props.isChange) {
     props.onDenyChanges();
     props.onSetChange(false);
   }

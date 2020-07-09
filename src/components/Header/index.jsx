@@ -2,34 +2,13 @@ import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { initiateCards } from "../../redux/actions";
-import { v4 as uuidv4 } from "uuid";
-
-const url =
-  "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
+import { logOut } from "../../redux/actions";
 
 const Header = (props) => {
   const cards = useSelector((state) => state.cards);
+  const { username, admin, logged } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(
-          initiateCards(
-            data.splice(0, 15).map((elem) => ({
-              id: uuidv4(),
-              header: elem.Name,
-              text: elem.About,
-            }))
-          )
-        );
-      })
-      .catch((err) => console.error(err));
-  }, []);
   return (
     <header className="header">
       <div className="flex">
@@ -37,11 +16,28 @@ const Header = (props) => {
         <Link to="/" className="butLink">
           Main Page
         </Link>
+        {admin && (
+          <Link to="/settings" className="butLink">
+            Settings
+          </Link>
+        )}
       </div>
       <div className="flex">
-        <Link to="/auth" className="butLink">
-          Sing In
-        </Link>
+        {logged ? (
+          <React.Fragment>
+            <div>Приветствую {username}</div>
+            <input
+              type="button"
+              onClick={() => dispatch(logOut())}
+              value="Log Out"
+              className="butLink"
+            />
+          </React.Fragment>
+        ) : (
+          <Link to="/auth" className="butLink">
+            Sing In
+          </Link>
+        )}
         <div className="textBlock">
           Количество карточек: {"  "}
           <span className="badge">{cards.length}</span>

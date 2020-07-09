@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { initiateCards } from "../../redux/actions";
+import { initiateCards, initiateUser } from "../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
 
 const url =
@@ -26,7 +26,13 @@ const Loader = (props) => {
         );
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    if (sessionStorage.user) {
+      dispatch(initiateUser());
+    }
+  }, [dispatch]);
 
   return <div>{props.children}</div>;
 };
