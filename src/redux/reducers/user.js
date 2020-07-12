@@ -13,11 +13,9 @@ const cards = (state = initialState, action) => {
       return JSON.parse(sessionStorage.user);
     }
     case LOGIN: {
-      const { username, password } = action;
+      const { username, password } = action.payload;
       const admin =
-        checkAdmin.username === username && checkAdmin.password === password
-          ? true
-          : false;
+        checkAdmin.username === username && checkAdmin.password === password;
       const newState = { username, admin, logged: true };
 
       sessionStorage.setItem("user", JSON.stringify(newState));

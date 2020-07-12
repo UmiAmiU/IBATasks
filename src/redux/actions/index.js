@@ -1,42 +1,65 @@
+import {
+  INITIATE_CARDS,
+  ADD_CARD,
+  UPDATE_CARD,
+  REMOVE_CARD,
+  REMOVE_CARDS,
+  INITIATE_USER,
+  LOGIN,
+  LOGOUT,
+} from "./actionTypes";
+
 export const initiateCards = (cards) => ({
-  cards,
-  type: "INITIATE_CARDS",
+  payload: {
+    cards,
+  },
+  type: INITIATE_CARDS,
 });
 
 export const addCard = (id, header, text) => ({
-  id,
-  header,
-  text,
-  type: "ADD_CARD",
+  payload: {
+    id,
+    header,
+    text,
+  },
+  type: ADD_CARD,
 });
 
 export const updateCard = (id, header, text) => ({
-  id,
-  header,
-  text,
-  type: "UPDATE_CARD",
+  payload: {
+    id,
+    header,
+    text,
+  },
+  type: UPDATE_CARD,
 });
 
 export const removeCard = (id) => ({
-  id,
-  type: "REMOVE_CARD",
+  payload: {
+    id,
+  },
+  type: REMOVE_CARD,
 });
 
 export const removeCards = (delCards) => ({
-  delCards,
-  type: "REMOVE_CARDS",
+  payload: {
+    delCards,
+  },
+  type: REMOVE_CARDS,
 });
 
 export const initiateUser = () => ({
-  type: "INITIATE_USER",
+  type: INITIATE_USER,
 });
 
 export const logIn = (username, password) => ({
-  username,
-  password,
-  type: "LOGIN",
+  payload: {
+    username,
+    password,
+  },
+  type: LOGIN,
 });
 
 export const logOut = () => ({
-  type: "LOGOUT",
+  type: LOGOUT,
 });
