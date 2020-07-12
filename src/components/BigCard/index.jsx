@@ -12,6 +12,9 @@ const BigCard = (props) => {
   const [isEditMode, setEditMode] = React.useState(false);
   const [isDisabled, setDisabled] = React.useState(false);
   const dispatch = useDispatch();
+  const isReadMode = localStorage.getItem("read")
+    ? JSON.parse(localStorage.getItem("read"))
+    : false;
 
   const [values, setValues] = React.useState({
     header: card.header,
@@ -26,54 +29,58 @@ const BigCard = (props) => {
     <div className="cardBlock">
       <div className="cardHeader">{card.header}</div>
       <div className="cardBody">{card.text}</div>
-      <input
-        type="button"
-        value={isEditMode ? "Принять изменения" : "Изменить карточку"}
-        onClick={() => {
-          if (isEditMode) {
-            dispatch(updateCard(id, values.header, values.text));
-            setValues({
-              header: card.header,
-              text: card.text,
-            });
-            setEditMode(false);
-          } else {
-            setEditMode(true);
-          }
-        }}
-        disabled={isDisabled}
-        style={{ margin: "1rem" }}
-      />
-      {isEditMode && (
-        <input
-          type="button"
-          value="Отмена"
-          onClick={() => {
-            setValues({
-              header: card.header,
-              text: card.text,
-            });
-            setEditMode(false);
-          }}
-        />
-      )}
-      {isEditMode && (
-        <div>
-          <TextField
-            onChange={handleChange("header")}
-            required
-            value={values.header}
-            setDisabled={setDisabled}
-          >
-            Header:
-          </TextField>
-          <textarea
-            style={{ margin: "5px", resize: "none", width: "90%" }}
-            rows="10"
-            value={values.text}
-            onChange={handleChange("text")}
-          ></textarea>
-        </div>
+      {!isReadMode && (
+        <React.Fragment>
+          <input
+            type="button"
+            value={isEditMode ? "Принять изменения" : "Изменить карточку"}
+            onClick={() => {
+              if (isEditMode) {
+                dispatch(updateCard(id, values.header, values.text));
+                setValues({
+                  header: card.header,
+                  text: card.text,
+                });
+                setEditMode(false);
+              } else {
+                setEditMode(true);
+              }
+            }}
+            disabled={isDisabled}
+            style={{ margin: "1rem" }}
+          />
+          {isEditMode && (
+            <input
+              type="button"
+              value="Отмена"
+              onClick={() => {
+                setValues({
+                  header: card.header,
+                  text: card.text,
+                });
+                setEditMode(false);
+              }}
+            />
+          )}
+          {isEditMode && (
+            <div>
+              <TextField
+                onChange={handleChange("header")}
+                required
+                value={values.header}
+                setDisabled={setDisabled}
+              >
+                Header:
+              </TextField>
+              <textarea
+                style={{ margin: "5px", resize: "none", width: "90%" }}
+                rows="10"
+                value={values.text}
+                onChange={handleChange("text")}
+              ></textarea>
+            </div>
+          )}
+        </React.Fragment>
       )}
     </div>
   );

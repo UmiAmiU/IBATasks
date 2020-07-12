@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import "./Main.css";
 import CardList from "../CardList";
 import { v4 as uuidv4 } from "uuid";
@@ -7,13 +6,7 @@ import { useDispatch } from "react-redux";
 import { addCard, removeCards } from "../../redux/actions";
 import TextField from "../TextField";
 
-const ReadCheckbox = styled.input`
-  margin-left: 1rem;
-  margin-top: 1rem;
-`;
-
 const Main = (props) => {
-  const [isReadMode, setReadMode] = React.useState(false);
   const [isAddMode, setAddMode] = React.useState(false);
   const [isDisabled, setDisabled] = React.useState(false);
   const dispatch = useDispatch();
@@ -41,11 +34,6 @@ const Main = (props) => {
   return (
     <div>
       <div>
-        <ReadCheckbox
-          type="checkbox"
-          onChange={() => setReadMode(!isReadMode)}
-        />
-        <label>"Режим чтения"</label>
         <input
           type="button"
           value={isAddMode ? "Добавить" : "Добавить новый элемент"}
@@ -103,7 +91,7 @@ const Main = (props) => {
           ></textarea>
         </div>
       )}
-      <CardList isReadMode={isReadMode} setRemove={setRemove} />
+      <CardList setRemove={setRemove} />
     </div>
   );
 };

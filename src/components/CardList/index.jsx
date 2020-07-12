@@ -17,7 +17,6 @@ const CardList = (props) => {
           header={card.header}
           text={card.text}
           onChecking={props.setRemove(card.id)}
-          isReadMode={props.isReadMode}
         />
       ))}
     </div>

@@ -36,6 +36,7 @@
   background: #007bff;
   border-radius: 3px;
   text-decoration: none;
+  outline: none;
 }
 
 .butLink:hover {
