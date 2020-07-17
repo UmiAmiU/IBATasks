@@ -60,10 +60,6 @@ const CardHeader = (props) => {
       />
     </React.Fragment>
   );
-  if (isReadMode && props.isChange) {
-    props.onDenyChanges();
-    props.onSetChange(false);
-  }
 
   return (
     <div style={styles.flex}>
